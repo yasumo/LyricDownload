@@ -9,32 +9,12 @@ namespace MVVMSample.model.model
 {
     public class Person : BindableBase
     {
-        private string firstName;
+        private int age;
 
-        public string FirstName
+        public int Age
         {
-            get { return this.firstName; }
-            set { this.SetProperty(ref this.firstName, value); }
-        }
-
-        private string lastName;
-
-        public string LastName
-        {
-            get { return this.lastName; }
-            set { this.SetProperty(ref this.lastName, value); }
-        }
-
-
-
-        public string CreateFullName() {
-            return firstName + " " + lastName;
-        }
-
-        public Person() {
-            this.PropertyChanged += (sender, e) => {
-                Console.WriteLine("change:Person");
-            };
+            get { return this.age; }
+            set { this.SetProperty(ref this.age, value); }
         }
 
     }

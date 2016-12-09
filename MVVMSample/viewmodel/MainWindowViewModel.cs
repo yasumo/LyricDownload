@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using MVVMSample.model.model;
 using System.Windows.Input;
 using MVVMSample.model.service;
+using System.ComponentModel;
+
 namespace MVVMSample.viewmodel
 {
     class MainWindowViewModel : BindableBase
@@ -30,6 +32,47 @@ namespace MVVMSample.viewmodel
             get { return _answerValue; }
             set { this.SetProperty(ref this._answerValue, value); }
         }
+
+
+        private string _answerValueReal;
+        public string AnswerValueReal
+        {
+            get { return _answerValueReal; }
+            set { this.SetProperty(ref this._answerValueReal, value); }
+        }
+
+        public MainWindowViewModel() {
+            PropertyChanged += leftChanged;
+            PropertyChanged += rightChanged;
+
+        }
+
+        private void leftChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // 文字列でプロパティ名を判別
+            if (e.PropertyName != "LeftValue") return;
+
+            // そしてキャスト
+            var v = (MainWindowViewModel)sender;
+
+            // 各々の処理
+            Console.WriteLine("leftが変更されました: " + v._leftValue);
+            CalcExecuteReal();
+        }
+        private void rightChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // 文字列でプロパティ名を判別
+            if (e.PropertyName != "RightValue") return;
+
+            // そしてキャスト
+            var v = (MainWindowViewModel)sender;
+
+            // 各々の処理
+            Console.WriteLine("leftが変更されました: " + v._rightValue);
+            CalcExecuteReal();
+        }
+
+
         private ICommand calcCommand;
 
         public ICommand CalcCommand
@@ -46,6 +89,13 @@ namespace MVVMSample.viewmodel
             AnswerValue = IntToString(Calculation.Sum(StringToInt(LeftValue), StringToInt(RightValue)));
         }
 
+        private void CalcExecuteReal()
+        {
+            if (CanCalcExecute()) { 
+                AnswerValueReal = IntToString(Calculation.Sum(StringToInt(LeftValue), StringToInt(RightValue)));
+            }
+        }
+
         private int StringToInt(string src)
         {
             int ret = 0;
@@ -53,7 +103,7 @@ namespace MVVMSample.viewmodel
             {
                 return ret;
             }
-            throw new ArgumentException("src" + src);
+            return 0;
         }
 
         private string IntToString(int src)
