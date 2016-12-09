@@ -26,10 +26,10 @@
             <Button Grid.Row ="3" Name="CalcButton" Content="=" Command ="{Binding CalcCommand , Mode=OneWay}" />
         </Grid>
         <Grid Name ="OutputRegion2" Grid.Row="1">
-            <TextBlock Name ="AnswerReal" Text="{ Binding AnswerValueReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
+            <TextBlock Name ="SumAgeReal" Text="{ Binding SumAgeReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
         </Grid>
         <Grid Name ="OutputRegion" Grid.Row="2">
-            <TextBlock Name ="Answer" Text="{ Binding AnswerValue}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
+            <TextBlock Name ="SumAge" Text="{ Binding SumAge}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
         </Grid>
     </Grid>
 </Window>

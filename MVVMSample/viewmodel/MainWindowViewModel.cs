@@ -13,38 +13,75 @@ namespace MVVMSample.viewmodel
 {
     class MainWindowViewModel : BindableBase
     {
-        private string _leftValue;
+
+        //AさんとBさんの年齢を計算するやつ
+        private Person pA=new Person();
+        private Person pB=new Person();
+
+        //Aさん用のフィールド
+        private string leftValue;
         public string LeftValue
         {
-            get { return _leftValue; }
-            set { this.SetProperty(ref this._leftValue, value); }
+            get { return leftValue; }
+            set { this.SetProperty(ref this.leftValue, value); }
         }
-        private string _rightValue;
+
+        //Bさん用のフィールド
+        private string rightValue;
         public string RightValue
         {
-            get { return _rightValue; }
-            set { this.SetProperty(ref this._rightValue, value); }
+            get { return rightValue; }
+            set { this.SetProperty(ref this.rightValue, value); }
         }
 
-        private string _answerValue;
-        public string AnswerValue
+        //年齢の合計(ボタンが押されてから計算)
+        private string sumAge;
+        public string SumAge
         {
-            get { return _answerValue; }
-            set { this.SetProperty(ref this._answerValue, value); }
+            get { return sumAge; }
+            set { this.SetProperty(ref this.sumAge, value); }
         }
 
-
-        private string _answerValueReal;
-        public string AnswerValueReal
+        //年齢の合計(すぐに計算)
+        private string sumAgeReal;
+        public string SumAgeReal
         {
-            get { return _answerValueReal; }
-            set { this.SetProperty(ref this._answerValueReal, value); }
+            get { return sumAgeReal; }
+            set { this.SetProperty(ref this.sumAgeReal, value); }
         }
 
+        //コンストラクタ
         public MainWindowViewModel() {
             PropertyChanged += leftChanged;
             PropertyChanged += rightChanged;
 
+            pA.PropertyChanged += pAAgeChanged;
+            pB.PropertyChanged += pBAgeChanged;
+        }
+
+        private void pAAgeChanged(object sender, PropertyChangedEventArgs e) {
+            // 文字列でプロパティ名を判別
+            if (e.PropertyName != "Age") return;
+
+            // 変更のあったものをキャスト
+            var v = (Person)sender;
+
+            // 各々の処理
+            Console.WriteLine("paが変更されました: " + v.Age);
+            LeftValue = v.Age.ToString();
+        }
+
+        private void pBAgeChanged(object sender, PropertyChangedEventArgs e)
+        {
+            // 文字列でプロパティ名を判別
+            if (e.PropertyName != "Age") return;
+
+            // 変更のあったものをキャスト
+            var v = (Person)sender;
+
+            // 各々の処理
+            Console.WriteLine("pbが変更されました: " + v.Age);
+            RightValue = v.Age.ToString();
         }
 
         private void leftChanged(object sender, PropertyChangedEventArgs e)
@@ -52,11 +89,12 @@ namespace MVVMSample.viewmodel
             // 文字列でプロパティ名を判別
             if (e.PropertyName != "LeftValue") return;
 
-            // そしてキャスト
+            // 変更のあったものをキャスト
             var v = (MainWindowViewModel)sender;
 
             // 各々の処理
-            Console.WriteLine("leftが変更されました: " + v._leftValue);
+            Console.WriteLine("leftが変更されました: " + v.leftValue);
+            pA.Age = StringToInt(LeftValue);
             CalcExecuteReal();
         }
         private void rightChanged(object sender, PropertyChangedEventArgs e)
@@ -64,11 +102,12 @@ namespace MVVMSample.viewmodel
             // 文字列でプロパティ名を判別
             if (e.PropertyName != "RightValue") return;
 
-            // そしてキャスト
+            // 変更のあったものをキャスト
             var v = (MainWindowViewModel)sender;
 
             // 各々の処理
-            Console.WriteLine("leftが変更されました: " + v._rightValue);
+            Console.WriteLine("rightが変更されました: " + v.rightValue);
+            pB.Age = StringToInt(RightValue);
             CalcExecuteReal();
         }
 
@@ -81,18 +120,21 @@ namespace MVVMSample.viewmodel
         }
         private bool CanCalcExecute()
         {
+            //バリデートするならココでやる
             return true;
         }
 
+        //ボタンが押されたときに計算する方
         private void CalcExecute()
         {
-            AnswerValue = IntToString(Calculation.Sum(StringToInt(LeftValue), StringToInt(RightValue)));
+            SumAge = IntToString(Calculation.Sum(pA.Age, pB.Age));
         }
 
+        //値の変動があったときにすぐに計算する方
         private void CalcExecuteReal()
         {
             if (CanCalcExecute()) { 
-                AnswerValueReal = IntToString(Calculation.Sum(StringToInt(LeftValue), StringToInt(RightValue)));
+                SumAgeReal = IntToString(Calculation.Sum(pA.Age, pB.Age));
             }
         }
 
