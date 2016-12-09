@@ -9,9 +9,9 @@ namespace MVVMSample.model.model
 {
     public class Person : BindableBase
     {
-        private int age;
+        private int? age;
 
-        public int Age
+        public int? Age
         {
             get { return this.age; }
             set { this.SetProperty(ref this.age, value); }

@@ -19,19 +19,17 @@ namespace MVVMSample.viewmodel
         private Person pB=new Person();
 
         //Aさん用のフィールド
-        private string leftValue;
-        public string LeftValue
+        public int? LeftValue
         {
-            get { return leftValue; }
-            set { this.SetProperty(ref this.leftValue, value); }
+            get { return pA.Age; }
+            set { pA.Age=value; }
         }
 
         //Bさん用のフィールド
-        private string rightValue;
-        public string RightValue
+        public int? RightValue
         {
-            get { return rightValue; }
-            set { this.SetProperty(ref this.rightValue, value); }
+            get { return pB.Age; }
+            set { pB.Age=value; }
         }
 
         //年齢の合計(ボタンが押されてから計算)
@@ -52,8 +50,6 @@ namespace MVVMSample.viewmodel
 
         //コンストラクタ
         public MainWindowViewModel() {
-            PropertyChanged += leftChanged;
-            PropertyChanged += rightChanged;
 
             pA.PropertyChanged += pAAgeChanged;
             pB.PropertyChanged += pBAgeChanged;
@@ -68,7 +64,7 @@ namespace MVVMSample.viewmodel
 
             // 各々の処理
             Console.WriteLine("paが変更されました: " + v.Age);
-            LeftValue = v.Age.ToString();
+            CalcExecuteReal();
         }
 
         private void pBAgeChanged(object sender, PropertyChangedEventArgs e)
@@ -81,35 +77,9 @@ namespace MVVMSample.viewmodel
 
             // 各々の処理
             Console.WriteLine("pbが変更されました: " + v.Age);
-            RightValue = v.Age.ToString();
-        }
-
-        private void leftChanged(object sender, PropertyChangedEventArgs e)
-        {
-            // 文字列でプロパティ名を判別
-            if (e.PropertyName != "LeftValue") return;
-
-            // 変更のあったものをキャスト
-            var v = (MainWindowViewModel)sender;
-
-            // 各々の処理
-            Console.WriteLine("leftが変更されました: " + v.leftValue);
-            pA.Age = StringToInt(LeftValue);
             CalcExecuteReal();
         }
-        private void rightChanged(object sender, PropertyChangedEventArgs e)
-        {
-            // 文字列でプロパティ名を判別
-            if (e.PropertyName != "RightValue") return;
 
-            // 変更のあったものをキャスト
-            var v = (MainWindowViewModel)sender;
-
-            // 各々の処理
-            Console.WriteLine("rightが変更されました: " + v.rightValue);
-            pB.Age = StringToInt(RightValue);
-            CalcExecuteReal();
-        }
 
 
         private ICommand calcCommand;
