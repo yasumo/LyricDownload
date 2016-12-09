@@ -12,8 +12,11 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MVVMSample.viewmodel;
 
-namespace MVVMSample
+
+namespace MVVMSample.view
+
 {
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
@@ -22,6 +25,7 @@ namespace MVVMSample
     {
         public MainWindow()
         {
+            this.DataContext = new MainWindowViewModel();
             InitializeComponent();
         }
     }
