@@ -4,8 +4,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MVVMSample"
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+		xmlns:b="clr-namespace:MVVMSample.Behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520" Width="525">
+        Title="MainWindow" Height="520" Width="525" >
+    <i:Interaction.Behaviors>
+        <b:SystemMenuBehavior IsVisible="True"
+							  CanMinimize="False"
+							  CanMaximize="True"
+							  ShowContextHelp="True"
+							  EnableAltF4="False"
+							  EnableClose="False"
+                              />
+    </i:Interaction.Behaviors>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height ="120*"/>

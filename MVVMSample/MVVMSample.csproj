@@ -35,8 +35,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Expression.Interactions, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Expression.Prototyping.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,7 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Behaviors\SystemMenuBehavior.cs" />
     <Compile Include="model\service\Calculation.cs" />
+    <Compile Include="util\Constant.cs" />
     <Compile Include="util\DelegateCommand.cs" />
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -67,6 +72,7 @@
     </Compile>
     <Compile Include="model\model\Person.cs" />
     <Compile Include="util\BindableBase.cs" />
+    <Compile Include="util\User32.cs" />
     <Compile Include="viewmodel\MainWindowViewModel.cs" />
     <Compile Include="view\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
