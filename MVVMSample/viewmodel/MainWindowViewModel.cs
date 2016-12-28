@@ -8,6 +8,7 @@ using MVVMSample.model.model;
 using System.Windows.Input;
 using MVVMSample.model.service;
 using System.ComponentModel;
+using System.Windows;
 
 namespace MVVMSample.viewmodel
 {
@@ -88,9 +89,21 @@ namespace MVVMSample.viewmodel
         {
             get { return this.calcCommand ?? (this.calcCommand = new DelegateCommand(CalcExecute, CanCalcExecute)); }
         }
+
+
+        private ICommand hiddenTaskBarCommand;
+        public ICommand HiddenTaskBarCommand
+        {
+            get { return this.hiddenTaskBarCommand ?? (this.hiddenTaskBarCommand = new DelegateCommand(HiddenTaskBarExecute)); }
+        }
+
         private bool CanCalcExecute()
         {
-            //バリデートするならココでやる
+            //バリデートするならココでやる、falseを返すと非活性になる
+            return true;
+        }
+
+        private bool CanHiddenTaskBarExecute() {
             return true;
         }
 
@@ -98,6 +111,17 @@ namespace MVVMSample.viewmodel
         private void CalcExecute()
         {
             SumAge = IntToString(Calculation.Sum(pA.Age, pB.Age));
+        }
+
+        //タスクバーを隠すコマンド
+        private void HiddenTaskBarExecute(object x)
+        {
+            if (x != null)
+            {
+                var window = (Window)x;
+                window.ShowInTaskbar = !window.ShowInTaskbar;
+//                SystemCommands.CloseWindow(window);
+            }
         }
 
         //値の変動があったときにすぐに計算する方
