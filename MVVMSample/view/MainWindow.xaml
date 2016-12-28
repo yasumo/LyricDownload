@@ -17,30 +17,34 @@
 							  EnableClose="False"
                               />
     </i:Interaction.Behaviors>
-    <Grid>
+    <Grid >
         <Grid.RowDefinitions>
-            <RowDefinition Height ="120*"/>
-            <RowDefinition Height ="200*"/>
-            <RowDefinition Height ="200*"/>
+            <RowDefinition Height="50" />
+            <RowDefinition Height="100" />
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <Grid Name ="InputRegion" Grid.Row="0">
+
+        <Grid Grid.Row="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height ="30*"/>
-                <RowDefinition Height ="30*"/>
-                <RowDefinition Height ="30*"/>
-                <RowDefinition Height ="30*"/>
-                <RowDefinition Height ="30*"/>
+                <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
-            <TextBox Grid.Row ="0" Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" Name="LeftValue" VerticalContentAlignment="Center" TextAlignment="Center" />
-            <TextBlock Grid.Row ="1"  Text ="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Row ="2" Text="{ Binding RightValue,UpdateSourceTrigger=PropertyChanged}" Name="RightValue" VerticalContentAlignment="Center" TextAlignment="Center"  />
-            <Button Grid.Row ="3" Name="CalcButton" Content="=" Command ="{Binding CalcCommand , Mode=OneWay}" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <TextBox Grid.Row ="0" Grid.Column="0"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" Name="LeftValue" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <TextBlock Grid.Row ="0" Grid.Column="1"  Text ="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row ="0" Grid.Column="2" Text="{ Binding RightValue,UpdateSourceTrigger=PropertyChanged}" Name="RightValue" VerticalContentAlignment="Center" TextAlignment="Center"  />
+            <Button Grid.Row ="0" Grid.Column="3" Name="CalcButton" Content="=" Command ="{Binding CalcCommand , Mode=OneWay}" />
+            <TextBlock Grid.Row ="0" Grid.Column="4" Name ="SumAge" Text="{ Binding SumAge}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
+            <TextBlock Grid.Row ="0" Grid.Column="5" Name ="SumAgeReal" Text="{ Binding SumAgeReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
         </Grid>
-        <Grid Name ="OutputRegion2" Grid.Row="1">
-            <TextBlock Name ="SumAgeReal" Text="{ Binding SumAgeReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
-        </Grid>
-        <Grid Name ="OutputRegion" Grid.Row="2">
-            <TextBlock Name ="SumAge" Text="{ Binding SumAge}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
-        </Grid>
+        
+        <TextBlock Grid.Row ="2"  Text ="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
     </Grid>
 </Window>
