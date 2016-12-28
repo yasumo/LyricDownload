@@ -10,17 +10,18 @@
         Title="MainWindow" Height="520" Width="525" >
     <i:Interaction.Behaviors>
         <b:SystemMenuBehavior IsVisible="True"
-							  CanMinimize="False"
-							  CanMaximize="True"
-							  ShowContextHelp="True"
-							  EnableAltF4="False"
-							  EnableClose="False"
+							  CanMinimize="{Binding IsChecked, ElementName=canMinimizeCheckBox}"
+							  CanMaximize="{Binding IsChecked, ElementName=canMaximizeCheckBox}"
+							  ShowContextHelp="False"
+							  EnableAltF4="{Binding IsChecked, ElementName=enableAltF4CheckBox}"
+							  EnableClose="{Binding IsChecked, ElementName=enableCloseCheckBox}"
                               />
     </i:Interaction.Behaviors>
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition Height="100" />
+            <RowDefinition Height="10" />
             <RowDefinition/>
         </Grid.RowDefinitions>
 
@@ -43,8 +44,12 @@
             <TextBlock Grid.Row ="0" Grid.Column="4" Name ="SumAge" Text="{ Binding SumAge}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
             <TextBlock Grid.Row ="0" Grid.Column="5" Name ="SumAgeReal" Text="{ Binding SumAgeReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
         </Grid>
-        
-        <TextBlock Grid.Row ="2"  Text ="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel Grid.Row="4" Margin="7">
+            <CheckBox IsChecked="False" Content="Can Minimize" x:Name="canMinimizeCheckBox" />
+            <CheckBox IsChecked="False" Content="Can Maximize" x:Name="canMaximizeCheckBox" />
+            <CheckBox IsChecked="False" Content="Can Alt + F4" x:Name="enableAltF4CheckBox" />
+            <CheckBox IsChecked="False" Content="Can Close" x:Name="enableCloseCheckBox" />
+        </StackPanel>
 
     </Grid>
 </Window>
