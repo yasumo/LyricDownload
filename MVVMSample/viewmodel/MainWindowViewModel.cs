@@ -44,8 +44,8 @@ namespace LyricDownload.viewmodel
             set { this.SetProperty(ref this.songTitleListSource, value); }
         }
 
-        private int selectedIndex;
-        public int SelectedIndex
+        private int? selectedIndex;
+        public int? SelectedIndex
         {
             get { return selectedIndex; }
             set { this.SetProperty(ref this.selectedIndex, value); }
@@ -71,7 +71,7 @@ namespace LyricDownload.viewmodel
         private void hoge(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
-                var s = (songs.SongList[selectedIndex]);
+                var s = (songs.SongList[selectedIndex.Value]);
                 Lyric = s.Lyric;
                 SongInfo = s.Lyricista + ":" + s.Composer;
             }
