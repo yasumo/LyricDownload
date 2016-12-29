@@ -100,35 +100,48 @@ namespace LyricDownload.viewmodel
         #region コマンド実メソッド
         private void calcSaveEverNoteCommand()
         {
-            addSong();
         }
 
-        private void calcDownloadCommand()
+        private async void calcDownloadCommand()
         {
-            addSong();
+            for (int i = 0; i < 10; i++)
+            {
+                var content = await download("http:hogehoge");
+                var song = createSong(content);
+                addSong(song);
+            }
         }
+
+
 
         #endregion
 
         #region その他プライベートメソッド
-        private void addSong()
-        {
+        //曲をコンテンツから作成
+        private Song createSong(string content) {
             var song = new Song();
             song.Title = "aaa";
             song.Singer = "aaa";
             song.Lyricista = "aaa";
             song.Composer = "aaa";
-            song.Lyric = "aaa";
+            song.Lyric = DecodeWebString.DecodeHtmlCharacterReference("&#38560;&#12375;&#12390;&rarr;&#38283;&#12356;&#12390;&rarr;&#38560;&#12375;&#12390;<br>&#12414;&#12384;&#12371;&#12428;&#12399;");
+            return song;
+        }
+
+        //曲を追加する
+        private void addSong(Song song)
+        {
             songs.SongList.Add(song);
             SongTitleListSource.Add(song.Title);
-            //            syncSongTitleList();
-        }
-        private void syncSongTitleList() {
-            SongTitleListSource = new ObservableCollection<string>((from p in songs.SongList
-                                                                    select p.Title).ToList());
         }
 
-
+        //ダウンロードしてコンテンツを返すやつ
+        private async Task<string> download(string url)
+        {
+            await Task.Delay(1000);
+            var content = "content";
+            return content;
+        }
         #endregion
     }
 
