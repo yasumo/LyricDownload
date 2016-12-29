@@ -5,27 +5,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:LyricDownload"
-		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-		xmlns:b="clr-namespace:LyricDownload.Behaviors"
         mc:Ignorable="d"
-        Title="MainWindow" Height="520" Width="525" >
-    <i:Interaction.Behaviors>
-        <b:SystemMenuBehavior IsVisible="True"
-							  CanMinimize="{Binding IsChecked, ElementName=canMinimizeCheckBox}"
-							  CanMaximize="{Binding IsChecked, ElementName=canMaximizeCheckBox}"
-							  ShowContextHelp="False"
-							  EnableAltF4="{Binding IsChecked, ElementName=enableAltF4CheckBox}"
-							  EnableClose="{Binding IsChecked, ElementName=enableCloseCheckBox}"
-                              />
-        <b:WindowBehavior IsVisible="{Binding IsChecked, ElementName=isVisibleTaskBarCheckBox}"
-                          />
-    </i:Interaction.Behaviors>
-    <Grid >
+        Title="MainWindow" Height="1000" Width="1000" >
+
+    <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="100" />
-            <RowDefinition Height="10" />
-            <RowDefinition/>
+            <RowDefinition Height="30" />
+            <RowDefinition Height="1*" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="1">
@@ -34,27 +22,24 @@
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="10" />
                 <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
-                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="120" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Row ="0" Grid.Column="0"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" Name="LeftValue" VerticalContentAlignment="Center" TextAlignment="Center" />
-            <TextBlock Grid.Row ="0" Grid.Column="1"  Text ="+" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <TextBox Grid.Row ="0" Grid.Column="2" Text="{ Binding RightValue,UpdateSourceTrigger=PropertyChanged}" Name="RightValue" VerticalContentAlignment="Center" TextAlignment="Center"  />
-            <Button Grid.Row ="0" Grid.Column="3" Name="CalcButton" Content="=" Command ="{Binding CalcCommand , Mode=OneWay}" />
-            <TextBlock Grid.Row ="0" Grid.Column="4" Name ="SumAge" Text="{ Binding SumAge}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
-            <TextBlock Grid.Row ="0" Grid.Column="5" Name ="SumAgeReal" Text="{ Binding SumAgeReal}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48pt"/>
+            <TextBox Grid.Column="0"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <TextBox Grid.Column="2"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <Grid Grid.Column="3">
+                <StackPanel Margin="7">
+                    <Button Content="DownLoad" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10"/>
+                    <Button Content="SaveHtml" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
+                    <Button Content="SaveEverNote" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
+                </StackPanel>
+            </Grid>
+
         </Grid>
-        <StackPanel Grid.Row="4" Margin="7">
-            <CheckBox IsChecked="True" Content="Can Minimize" x:Name="canMinimizeCheckBox" />
-            <CheckBox IsChecked="True" Content="Can Maximize" x:Name="canMaximizeCheckBox" />
-            <CheckBox IsChecked="False" Content="ALT F4の制御" x:Name="enableAltF4CheckBox" />
-            <CheckBox IsChecked="False" Content="アプリ終了の制御、×ボタンやALT F4のシステムコールを握り捨てます" x:Name="enableCloseCheckBox" />
-            <CheckBox IsChecked="False" Content="タスクバーOnOff(ビヘイビア版)↓と連動はしないです" x:Name="isVisibleTaskBarCheckBox" />
-            <Button x:Name="HiddenTaskBar" Content="タスクバーOnOff(コマンド版)" Command ="{Binding HiddenTaskBarCommand , Mode=OneWay}" CommandParameter="{Binding ElementName=Window}" Width="200" />
-        </StackPanel>
+        <Grid Grid.Row="3">
+            <TextBox Grid.Column="1"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+        </Grid>
 
     </Grid>
 </Window>

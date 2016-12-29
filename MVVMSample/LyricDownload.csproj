@@ -58,8 +58,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Behaviors\SystemMenuBehavior.cs" />
-    <Compile Include="Behaviors\WindowBehavior.cs" />
     <Compile Include="model\service\Calculation.cs" />
     <Compile Include="util\Constant.cs" />
     <Compile Include="util\DelegateCommand.cs" />
