@@ -58,8 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="model\model\Song.cs" />
+    <Compile Include="model\model\Songs.cs" />
     <Compile Include="model\service\Calculation.cs" />
-    <Compile Include="util\Constant.cs" />
     <Compile Include="util\DelegateCommand.cs" />
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -69,9 +70,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="model\model\Person.cs" />
     <Compile Include="util\BindableBase.cs" />
-    <Compile Include="util\User32.cs" />
     <Compile Include="viewmodel\MainWindowViewModel.cs" />
     <Compile Include="view\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

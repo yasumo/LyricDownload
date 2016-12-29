@@ -27,10 +27,10 @@
                 <ColumnDefinition Width="120" />
             </Grid.ColumnDefinitions>
             <TextBox Grid.Column="0"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
-            <TextBox Grid.Column="2"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <ListBox Grid.Column="2" Name="list3" ItemsSource="{Binding SongTitleListSource}" SelectedIndex="{Binding SelectedIndex}"/>
             <Grid Grid.Column="3">
                 <StackPanel Margin="7">
-                    <Button Content="DownLoad" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10"/>
+                    <Button Content="DownLoad" Command ="{Binding SaveHtmlCommand , Mode=OneWay}" Margin="0,10,0,10"/>
                     <Button Content="SaveHtml" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
                     <Button Content="SaveEverNote" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
                 </StackPanel>

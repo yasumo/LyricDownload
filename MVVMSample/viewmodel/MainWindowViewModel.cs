@@ -9,142 +9,97 @@ using System.Windows.Input;
 using LyricDownload.model.service;
 using System.ComponentModel;
 using System.Windows;
+using System.Collections.ObjectModel;
 
 namespace LyricDownload.viewmodel
 {
     class MainWindowViewModel : BindableBase
     {
 
-        //AさんとBさんの年齢を計算するやつ
-        private Person pA=new Person();
-        private Person pB=new Person();
 
-        //Aさん用のフィールド
-        public int? LeftValue
+        #region プロパティ・プライベート変数
+        private ObservableCollection<string> songTitleListSource;
+        public ObservableCollection<string> SongTitleListSource
         {
-            get { return pA.Age; }
-            set { pA.Age=value; }
+            get { return songTitleListSource; }
+            set { this.SetProperty(ref this.songTitleListSource, value); }
         }
 
-        //Bさん用のフィールド
-        public int? RightValue
+        private int selectedIndex;
+        public int SelectedIndex
         {
-            get { return pB.Age; }
-            set { pB.Age=value; }
+            get { return selectedIndex; }
+            set { this.SetProperty(ref this.selectedIndex, value); }
         }
 
-        //年齢の合計(ボタンが押されてから計算)
-        private string sumAge;
-        public string SumAge
-        {
-            get { return sumAge; }
-            set { this.SetProperty(ref this.sumAge, value); }
-        }
+        private Songs songs;
 
-        //年齢の合計(すぐに計算)
-        private string sumAgeReal;
-        public string SumAgeReal
-        {
-            get { return sumAgeReal; }
-            set { this.SetProperty(ref this.sumAgeReal, value); }
-        }
+
+
+
+
+        #endregion
+
 
         //コンストラクタ
-        public MainWindowViewModel() {
-
-            pA.PropertyChanged += pAAgeChanged;
-            pB.PropertyChanged += pBAgeChanged;
-        }
-
-        private void pAAgeChanged(object sender, PropertyChangedEventArgs e) {
-            // 文字列でプロパティ名を判別
-            if (e.PropertyName != "Age") return;
-
-            // 変更のあったものをキャスト
-            var v = (Person)sender;
-
-            // 各々の処理
-            Console.WriteLine("paが変更されました: " + v.Age);
-            CalcExecuteReal();
-        }
-
-        private void pBAgeChanged(object sender, PropertyChangedEventArgs e)
+        public MainWindowViewModel()
         {
-            // 文字列でプロパティ名を判別
-            if (e.PropertyName != "Age") return;
-
-            // 変更のあったものをキャスト
-            var v = (Person)sender;
-
-            // 各々の処理
-            Console.WriteLine("pbが変更されました: " + v.Age);
-            CalcExecuteReal();
+            songs = new Songs();
+            songTitleListSource = new ObservableCollection<string>();
+            PropertyChanged += hoge;
         }
 
-
-
-        private ICommand calcCommand;
-
-        public ICommand CalcCommand
+        private void hoge(object sender, PropertyChangedEventArgs e)
         {
-            get { return this.calcCommand ?? (this.calcCommand = new DelegateCommand(CalcExecute, CanCalcExecute)); }
-        }
-
-
-        private ICommand hiddenTaskBarCommand;
-        public ICommand HiddenTaskBarCommand
-        {
-            get { return this.hiddenTaskBarCommand ?? (this.hiddenTaskBarCommand = new DelegateCommand(HiddenTaskBarExecute)); }
-        }
-
-        private bool CanCalcExecute()
-        {
-            //バリデートするならココでやる、falseを返すと非活性になる
-            return true;
-        }
-
-        private bool CanHiddenTaskBarExecute() {
-            return true;
-        }
-
-        //ボタンが押されたときに計算する方
-        private void CalcExecute()
-        {
-            SumAge = IntToString(Calculation.Sum(pA.Age, pB.Age));
-        }
-
-        //タスクバーを隠すコマンド
-        private void HiddenTaskBarExecute(object x)
-        {
-            if (x != null)
-            {
-                var window = (Window)x;
-                window.ShowInTaskbar = !window.ShowInTaskbar;
-//                SystemCommands.CloseWindow(window);
+            if (e.PropertyName.Equals("SelectedIndex")) {
+                var s = (songs.SongList[selectedIndex]);
+                Console.WriteLine(s.Lyric);
+                Console.WriteLine(s.Lyricista);
             }
         }
 
-        //値の変動があったときにすぐに計算する方
-        private void CalcExecuteReal()
+
+
+        #region コマンド
+        private ICommand saveHtmlCommand;
+
+        public ICommand SaveHtmlCommand
         {
-            if (CanCalcExecute()) { 
-                SumAgeReal = IntToString(Calculation.Sum(pA.Age, pB.Age));
-            }
+            get { return this.saveHtmlCommand ?? (this.saveHtmlCommand = new DelegateCommand(calcSaveHtmlCommand, null)); }
+        }
+        #endregion
+
+
+
+
+        #region コマンド実メソッド
+        private void calcSaveHtmlCommand()
+        {
+            addSong();
         }
 
-        private int StringToInt(string src)
+        #endregion
+
+        #region その他プライベートメソッド
+        private void addSong()
         {
-            int ret = 0;
-            if (int.TryParse(src, out ret))
-            {
-                return ret;
-            }
-            return 0;
+            var song = new Song();
+            song.Title = "aaa";
+            song.Singer = "aaa";
+            song.Lyricista = "aaa";
+            song.Composer = "aaa";
+            song.Lyric = "aaa";
+            songs.SongList.Add(song);
+            SongTitleListSource.Add(song.Title);
+            //            syncSongTitleList();
+        }
+        private void syncSongTitleList() {
+            SongTitleListSource = new ObservableCollection<string>((from p in songs.SongList
+                                                                    select p.Title).ToList());
         }
 
-        private string IntToString(int src)
-        {
-            return src.ToString();
-        }
+
+        #endregion
     }
+
 }
