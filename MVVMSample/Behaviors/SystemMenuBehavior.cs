@@ -1,13 +1,13 @@
-﻿using MVVMSample.util;
+﻿using LyricDownload.util;
 using System;
 using System.Windows;
 using System.Windows.Interactivity;
 using System.Windows.Interop;
-using This = MVVMSample.Behaviors.SystemMenuBehavior;
+using This = LyricDownload.Behaviors.SystemMenuBehavior;
 
 
 
-namespace MVVMSample.Behaviors
+namespace LyricDownload.Behaviors
 {
     public class SystemMenuBehavior : Behavior<Window>
     {

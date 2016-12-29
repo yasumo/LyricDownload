@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVVMSample.util
+namespace LyricDownload.util
 {
     public static class User32
     {

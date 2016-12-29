@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace MVVMSample.util
+namespace LyricDownload.util
 {
     //Inside Bindable Base
     public abstract class BindableBase : INotifyPropertyChanged

@@ -1,16 +1,16 @@
-﻿using MVVMSample.util;
+﻿using LyricDownload.util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVVMSample.model.model;
+using LyricDownload.model.model;
 using System.Windows.Input;
-using MVVMSample.model.service;
+using LyricDownload.model.service;
 using System.ComponentModel;
 using System.Windows;
 
-namespace MVVMSample.viewmodel
+namespace LyricDownload.viewmodel
 {
     class MainWindowViewModel : BindableBase
     {

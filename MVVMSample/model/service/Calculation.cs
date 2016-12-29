@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVVMSample.model.service
+namespace LyricDownload.model.service
 {
     class Calculation
     {

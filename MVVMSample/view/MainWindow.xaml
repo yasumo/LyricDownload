@@ -1,12 +1,12 @@
-﻿<Window x:Class="MVVMSample.view.MainWindow"
+﻿<Window x:Class="LyricDownload.view.MainWindow"
         x:Name="Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVMSample"
+        xmlns:local="clr-namespace:LyricDownload"
 		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
-		xmlns:b="clr-namespace:MVVMSample.Behaviors"
+		xmlns:b="clr-namespace:LyricDownload.Behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="520" Width="525" >
     <i:Interaction.Behaviors>

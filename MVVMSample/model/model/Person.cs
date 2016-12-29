@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MVVMSample.util;
+using LyricDownload.util;
 
-namespace MVVMSample.model.model
+namespace LyricDownload.model.model
 {
     public class Person : BindableBase
     {

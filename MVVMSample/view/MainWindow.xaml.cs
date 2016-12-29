@@ -12,10 +12,10 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MVVMSample.viewmodel;
+using LyricDownload.viewmodel;
 
 
-namespace MVVMSample.view
+namespace LyricDownload.view
 
 {
     /// <summary>

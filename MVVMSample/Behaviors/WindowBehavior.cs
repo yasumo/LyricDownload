@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Interactivity;
-using This = MVVMSample.Behaviors.WindowBehavior;
+using This = LyricDownload.Behaviors.WindowBehavior;
 
-namespace MVVMSample.Behaviors
+namespace LyricDownload.Behaviors
 {
     class WindowBehavior : Behavior<Window>
     {

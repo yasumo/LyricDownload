@@ -1,7 +1,7 @@
 ﻿
 using System.Windows.Input;
 
-namespace MVVMSample.util
+namespace LyricDownload.util
 {
     public class DelegateCommand : ICommand
     {
