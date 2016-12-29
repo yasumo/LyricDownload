@@ -18,6 +18,25 @@ namespace LyricDownload.viewmodel
 
 
         #region プロパティ・プライベート変数
+        private string urls;
+        public string Urls
+        {
+            get { return urls; }
+            set { this.SetProperty(ref this.urls, value); }
+        }
+        private string songInfo;
+        public string SongInfo
+        {
+            get { return songInfo; }
+            set { this.SetProperty(ref this.songInfo, value); }
+        }
+        private string lyric;
+        public string Lyric
+        {
+            get { return lyric; }
+            set { this.SetProperty(ref this.lyric, value); }
+        }
+
         private ObservableCollection<string> songTitleListSource;
         public ObservableCollection<string> SongTitleListSource
         {
@@ -53,27 +72,38 @@ namespace LyricDownload.viewmodel
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
                 var s = (songs.SongList[selectedIndex]);
-                Console.WriteLine(s.Lyric);
-                Console.WriteLine(s.Lyricista);
+                Lyric = s.Lyric;
+                SongInfo = s.Lyricista + ":" + s.Composer;
             }
         }
 
 
 
         #region コマンド
-        private ICommand saveHtmlCommand;
+        private ICommand saveEverNoteCommand;
 
-        public ICommand SaveHtmlCommand
+        public ICommand SaveEverNoteCommand
         {
-            get { return this.saveHtmlCommand ?? (this.saveHtmlCommand = new DelegateCommand(calcSaveHtmlCommand, null)); }
+            get { return this.saveEverNoteCommand ?? (this.saveEverNoteCommand = new DelegateCommand(calcSaveEverNoteCommand, null)); }
+        }
+        private ICommand downloadCommand;
+
+        public ICommand DownloadCommand
+        {
+            get { return this.downloadCommand ?? (this.downloadCommand = new DelegateCommand(calcDownloadCommand, null)); }
         }
         #endregion
 
-
+        
 
 
         #region コマンド実メソッド
-        private void calcSaveHtmlCommand()
+        private void calcSaveEverNoteCommand()
+        {
+            addSong();
+        }
+
+        private void calcDownloadCommand()
         {
             addSong();
         }

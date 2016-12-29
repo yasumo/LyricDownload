@@ -10,13 +10,12 @@
 
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
             <RowDefinition Height="1*" />
-            <RowDefinition Height="30" />
+            <RowDefinition Height="100" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="0" Margin="0,30,0,10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*" />
             </Grid.RowDefinitions>
@@ -26,19 +25,22 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="120" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <TextBox Grid.Column="0"  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Urls,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
             <ListBox Grid.Column="2" Name="list3" ItemsSource="{Binding SongTitleListSource}" SelectedIndex="{Binding SelectedIndex}"/>
             <Grid Grid.Column="3">
                 <StackPanel Margin="7">
-                    <Button Content="DownLoad" Command ="{Binding SaveHtmlCommand , Mode=OneWay}" Margin="0,10,0,10"/>
-                    <Button Content="SaveHtml" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
-                    <Button Content="SaveEverNote" Command ="{Binding CalcCommand , Mode=OneWay}" Margin="0,10,0,10" />
+                    <Button Content="DownLoad" Command ="{Binding DownloadCommand , Mode=OneWay}" Margin="0,10,0,10" />
+                    <Button Content="SaveEverNote" Command ="{Binding SaveEverNoteCommand , Mode=OneWay}" Margin="0,10,0,10" />
                 </StackPanel>
             </Grid>
 
         </Grid>
-        <Grid Grid.Row="3">
-            <TextBox Grid.Column="1"  Text="{ Binding LeftValue,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+        <Grid Grid.Row="1" Margin="0,10,0,10">
+            <TextBox Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Text="{ Binding SongInfo,UpdateSourceTrigger=PropertyChanged}" />
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="0,10,0,10">
+            <TextBox Grid.Column="1" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Text="{ Binding Lyric,UpdateSourceTrigger=PropertyChanged}" />
         </Grid>
 
     </Grid>
