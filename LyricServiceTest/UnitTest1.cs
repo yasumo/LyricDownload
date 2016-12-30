@@ -20,5 +20,12 @@ namespace LyricServiceTest
            var hoge = HttpRequester.FileGetContent("http:hogehoge").Result;
            Console.WriteLine(hoge);
         }
+
+        [TestMethod]
+        public void CreateSong()
+        {
+            var content = HttpRequester.FileGetContent("http:hogehoge").Result;
+            var song = SongInfoExtraction.CreateSong(content);
+        }
     }
 }

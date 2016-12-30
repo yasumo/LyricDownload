@@ -8,6 +8,6 @@ namespace LyricDownload.model
 {
     class Constants
     {
-        public const string Hoge = "";
+        public const string Tab= "\t";
     }
 }

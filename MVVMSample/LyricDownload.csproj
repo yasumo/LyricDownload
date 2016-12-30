@@ -64,6 +64,7 @@
     <Compile Include="model\model\Songs.cs" />
     <Compile Include="model\service\DecodeWebString.cs" />
     <Compile Include="model\service\HttpRequester.cs" />
+    <Compile Include="model\service\SongInfoExtraction.cs" />
     <Compile Include="util\DelegateCommand.cs" />
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -11,7 +11,7 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
-            <RowDefinition Height="100" />
+            <RowDefinition Height="80" />
             <RowDefinition Height="2*" />
         </Grid.RowDefinitions>
 
@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="1*" />
                 <ColumnDefinition Width="120" />
             </Grid.ColumnDefinitions>
-            <TextBox Grid.Column="0"  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Urls,UpdateSourceTrigger=PropertyChanged}" VerticalContentAlignment="Center" TextAlignment="Center" />
+            <TextBox Grid.Column="0"  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Urls,UpdateSourceTrigger=PropertyChanged}" />
             <ListBox Grid.Column="2" Name="list3" ItemsSource="{Binding SongTitleListSource}" SelectedIndex="{Binding SelectedIndex}"/>
             <Grid Grid.Column="3">
                 <StackPanel Margin="7">

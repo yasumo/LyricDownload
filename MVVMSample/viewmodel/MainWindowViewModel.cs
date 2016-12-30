@@ -10,6 +10,7 @@ using LyricDownload.model.service;
 using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
+using LyricDownload.model;
 
 namespace LyricDownload.viewmodel
 {
@@ -73,7 +74,8 @@ namespace LyricDownload.viewmodel
             if (e.PropertyName.Equals("SelectedIndex")) {
                 var s = (songs.SongList[selectedIndex.Value]);
                 Lyric = s.Lyric;
-                SongInfo = s.Lyricista + ":" + s.Composer;
+                SongInfo = "タイトル：" + s.Title + System.Environment.NewLine
+                    + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
             }
         }
 
@@ -108,7 +110,7 @@ namespace LyricDownload.viewmodel
             for (int i = 0; i < 10; i++)
             {
                 var content = await HttpRequester.FileGetContent("http:hogehoge");
-                var song = createSong(content);
+                var song = SongInfoExtraction.CreateSong(content);
                 addSong(song);
             }
         }
@@ -118,22 +120,6 @@ namespace LyricDownload.viewmodel
         #endregion
 
         #region その他プライベートメソッド
-        //曲をコンテンツから作成
-        private Song createSong(string content) {
-            var title = "aaa";
-            var singer = "aab";
-            var lyricista = "aaa";
-            var composer = "ccc";
-            var lyric = DecodeWebString.DecodeHtmlCharacterReference("&#38560;&#12375;&#12390;&rarr;&#38283;&#12356;&#12390;&rarr;&#38560;&#12375;&#12390;<br>&#12414;&#12384;&#12371;&#12428;&#12399;");
-            return new Song {
-                Title = title,
-                Singer = singer,
-                Lyricista = lyricista,
-                Composer = composer,
-                Lyric = lyric
-            };
-        }
-
         //曲を追加する
         private void addSong(Song song)
         {
