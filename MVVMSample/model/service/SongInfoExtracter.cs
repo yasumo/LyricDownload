@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace LyricDownload.model.service
 {
-    public class SongInfoExtraction
+    public class SongInfoExtracter
     {
         public static Song CreateSong(string contents) {
             contents = deleteTabAndNewLine(contents);
@@ -51,14 +51,14 @@ namespace LyricDownload.model.service
         private static string extractComposer(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>作曲</th><td><a href=[^>]*>([^<]*)</a>");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
         private static string extractLyricista(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>作詞</th><td><a href=[^>]*>([^<]*)</a>");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
@@ -67,14 +67,14 @@ namespace LyricDownload.model.service
         private static string extractTitle(string contents)
         {
             var ret = extractRegex(contents,@"<h1>(.*)</h1>");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
         private static string extractSinger(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>歌手</th><td><a href=[^>]*>([^<]*)</a>");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
@@ -82,7 +82,7 @@ namespace LyricDownload.model.service
         private static string extractLyric(string contents)
         {
             var ret = extractRegex(contents, @"var lyrics = '([^']*)'");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HtmlBR);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HtmlBR);
             return ret;
         }
 

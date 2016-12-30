@@ -7,7 +7,7 @@ using System.Web;
 
 namespace LyricDownload.model.service
 {
-    public class DecodeWebString
+    public class WebStringDecoder
     {
         static public string DecodeHtmlCharacterReference(string target) { 
             return  HttpUtility.HtmlDecode(target);

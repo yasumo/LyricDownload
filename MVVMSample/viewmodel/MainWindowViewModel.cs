@@ -53,6 +53,15 @@ namespace LyricDownload.viewmodel
             set { this.SetProperty(ref this.selectedIndex, value); }
         }
 
+        private string saveDir;
+        public string SaveDir
+        {
+            get { return saveDir; }
+            set { this.SetProperty(ref this.saveDir, value); }
+        }
+
+        
+
         private Songs songs;
         #endregion
 
@@ -63,8 +72,11 @@ namespace LyricDownload.viewmodel
             songs = new Songs();
             songTitleListSource = new ObservableCollection<string>();
             PropertyChanged += propertyChange;
+            SaveDir = @"D:\tmp";
         }
 
+
+        #region ハンドラ
         private void propertyChange(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
@@ -74,8 +86,7 @@ namespace LyricDownload.viewmodel
                     + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
             }
         }
-
-
+        #endregion
 
         #region コマンド
         private ICommand saveEverNoteCommand;
@@ -92,13 +103,11 @@ namespace LyricDownload.viewmodel
         }
         #endregion
 
-        
-
-
         #region コマンド実メソッド
         private void calcSaveEverNoteCommand()
         {
-            //songsをevernoteに保存するやつ
+
+
         }
 
         private async void calcDownloadCommand()
@@ -123,7 +132,7 @@ namespace LyricDownload.viewmodel
             {
                 //i とりあえず適当にダウンロード
                 var content = HttpRequester.FileGetContent(u);
-                var song = SongInfoExtraction.CreateSong(content);
+                var song = SongInfoExtracter.CreateSong(content);
                 addSong(song);
 
                 //連続でダウンロードすると怪しまれると思うので待機

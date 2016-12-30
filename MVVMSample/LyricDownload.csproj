@@ -62,9 +62,11 @@
     <Compile Include="model\Constants.cs" />
     <Compile Include="model\model\Song.cs" />
     <Compile Include="model\model\Songs.cs" />
-    <Compile Include="model\service\DecodeWebString.cs" />
+    <Compile Include="model\service\EverNoteConverter.cs" />
+    <Compile Include="model\service\WebStringDecoder.cs" />
+    <Compile Include="model\service\FileCreater.cs" />
     <Compile Include="model\service\HttpRequester.cs" />
-    <Compile Include="model\service\SongInfoExtraction.cs" />
+    <Compile Include="model\service\SongInfoExtracter.cs" />
     <Compile Include="util\DelegateCommand.cs" />
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
