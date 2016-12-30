@@ -12,11 +12,9 @@
             <RowDefinition Height="1*" />
             <RowDefinition Height="2*" />
             <RowDefinition Height="50" />
-            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
         <TextBox Grid.Row="0" Margin="10"  AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Html,UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="1" Margin="10" IsReadOnly="True" VerticalScrollBarVisibility="Auto" Text="{Binding Urls,UpdateSourceTrigger=PropertyChanged}" />
         <TextBox Grid.Row="2" Margin="10" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Text="{Binding Prefix,UpdateSourceTrigger=PropertyChanged}" />
-        <Button Grid.Row="3" Margin="10" Width="100" Content="Extract" Command ="{Binding ExtractCommand , Mode=OneWay}"  />
     </Grid>
 </Window>

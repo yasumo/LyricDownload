@@ -39,26 +39,14 @@ namespace ExtractionSongsUrl
 
         private void propertyChange(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("Prefix"))
+            if (e.PropertyName.Equals("Prefix")||e.PropertyName.Equals("Html"))
             {
+                urlList = ExtractService.ExtractSongUrls(Html);
                 apply();
             }
         }
 
 
-
-        private ICommand extractCommand;
-
-        public ICommand ExtractCommand
-        {
-            get { return this.extractCommand ?? (this.extractCommand = new DelegateCommand(extractCommandExecute, null)); }
-        }
-
-        private void extractCommandExecute()
-        {
-            urlList = ExtractService.ExtractSongUrls(Html);
-            apply();
-        }
         private void apply() {
             var tmp = "";
             foreach (var u in urlList) {
