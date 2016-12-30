@@ -15,17 +15,12 @@ namespace LyricServiceTest
         }
 
         [TestMethod]
-        public void FileGetContentTest()
-        {
-           var hoge = HttpRequester.FileGetContent("http:hogehoge").Result;
-           Console.WriteLine(hoge);
-        }
-
-        [TestMethod]
         public void CreateSong()
         {
-            var content = HttpRequester.FileGetContent("http:hogehoge").Result;
+            //i
+            var content = HttpRequester.FileGetContent("http://www.kasX-tXme.com/Xtem-65154.html");
             var song = SongInfoExtraction.CreateSong(content);
         }
+
     }
 }

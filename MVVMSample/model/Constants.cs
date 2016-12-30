@@ -8,7 +8,8 @@ namespace LyricDownload.model
 {
     class Constants
     {
-        public const string TAB= "\t";
-        public const string HTML_BR = "<br/>";
+        public const string Tab= "\t";
+        public const string HtmlBR = "<br/>";
+        public const string NewLineN = "\n";
     }
 }

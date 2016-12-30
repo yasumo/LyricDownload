@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,22 +11,29 @@ namespace LyricDownload.model.service
     public class HttpRequester
     {
         //ダウンロードしてコンテンツを返すやつ
-        public static async Task<string> FileGetContent(string url)
+        public static HttpWebResponse GetRequest(string url)
         {
-            await Task.Delay(1000);
-            var content = "";
+            HttpWebRequest req = (HttpWebRequest)WebRequest.Create(url);
+            req.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/42.0.2311.135 Safari/537.36 Edge/12.<OS build number>";
+            req.Method = "GET";
 
-            using (StreamReader r = new StreamReader(@"E:\WindowsWorkFiles\Desktop\sample\samplehtml.html"))
-            {
-                string line;
-                while ((line = r.ReadLine()) != null) // 1行ずつ読み出し。
-                {
-                    content += line + System.Environment.NewLine;
-                }
-            }
+            HttpWebResponse res = (HttpWebResponse)req.GetResponse();
 
-            return content;
+            return res;
         }
+
+        public static string ExtractContents(HttpWebResponse res) {
+            Stream s = res.GetResponseStream();
+            StreamReader sr = new StreamReader(s);
+            
+            return sr.ReadToEnd();
+        }
+
+        public static string FileGetContent(string url) {
+            return ExtractContents(GetRequest(url));
+        }
+
+
 
     }
 }

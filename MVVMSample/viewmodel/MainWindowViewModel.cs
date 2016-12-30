@@ -68,9 +68,9 @@ namespace LyricDownload.viewmodel
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
                 var s = (songs.SongList[selectedIndex.Value]);
-                Lyric = s.Lyric.Replace(Constants.HTML_BR,System.Environment.NewLine);
+                Lyric = s.Lyric.Replace(Constants.HtmlBR,System.Environment.NewLine);
                 SongInfo = "タイトル：" + s.Title + System.Environment.NewLine
-                    + "歌手：" + s.Singer + Constants.TAB + "作詞：" + s.Lyricista + Constants.TAB + "作曲：" + s.Composer;
+                    + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
             }
         }
 
@@ -102,9 +102,13 @@ namespace LyricDownload.viewmodel
 
         private async void calcDownloadCommand()
         {
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 2; i++)
             {
-                var content = await HttpRequester.FileGetContent("http:hogehoge");
+                //連続でダウンロードすると怪しまれると思うので待機
+                await Task.Delay(5000);
+
+                //i とりあえず適当にダウンロード
+                var content = HttpRequester.FileGetContent("http://www.kasX-tXme.com/Xtem-65154.html");
                 var song = SongInfoExtraction.CreateSong(content);
                 addSong(song);
             }

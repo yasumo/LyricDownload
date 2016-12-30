@@ -27,8 +27,9 @@ namespace LyricDownload.model.service
         }
         private static string deleteTabAndNewLine(string contents)
         {
-            return contents.Replace(Constants.TAB, "").Replace(System.Environment.NewLine, "");
+            return contents.Replace(Constants.Tab, "").Replace(System.Environment.NewLine, "").Replace(Constants.NewLineN,"");
         }
+
         private static string extractRegex( string target, string regexStr)
         {
             var ret = "";
@@ -50,12 +51,14 @@ namespace LyricDownload.model.service
         private static string extractComposer(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>作曲</th><td><a href=[^>]*>([^<]*)</a>");
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
         private static string extractLyricista(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>作詞</th><td><a href=[^>]*>([^<]*)</a>");
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
@@ -64,12 +67,14 @@ namespace LyricDownload.model.service
         private static string extractTitle(string contents)
         {
             var ret = extractRegex(contents,@"<h1>(.*)</h1>");
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
         private static string extractSinger(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>歌手</th><td><a href=[^>]*>([^<]*)</a>");
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret);
             return ret;
         }
 
@@ -77,7 +82,7 @@ namespace LyricDownload.model.service
         private static string extractLyric(string contents)
         {
             var ret = extractRegex(contents, @"var lyrics = '([^']*)'");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HTML_BR);
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HtmlBR);
             return ret;
         }
 
