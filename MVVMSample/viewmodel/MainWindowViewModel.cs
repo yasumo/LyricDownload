@@ -11,6 +11,7 @@ using System.ComponentModel;
 using System.Windows;
 using System.Collections.ObjectModel;
 using LyricDownload.model;
+using System.IO;
 
 namespace LyricDownload.viewmodel
 {
@@ -61,10 +62,10 @@ namespace LyricDownload.viewmodel
         {
             songs = new Songs();
             songTitleListSource = new ObservableCollection<string>();
-            PropertyChanged += hoge;
+            PropertyChanged += propertyChange;
         }
 
-        private void hoge(object sender, PropertyChangedEventArgs e)
+        private void propertyChange(object sender, PropertyChangedEventArgs e)
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
                 var s = (songs.SongList[selectedIndex.Value]);
@@ -102,15 +103,34 @@ namespace LyricDownload.viewmodel
 
         private async void calcDownloadCommand()
         {
-            for (int i = 0; i < 2; i++)
+            StringReader strReader = new StringReader(Urls);
+            var urlList = new List<string>();
+            while (true)
             {
-                //連続でダウンロードすると怪しまれると思うので待機
-                await Task.Delay(5000);
+                var line = strReader.ReadLine();
+                if (line != null)
+                {
+                    urlList.Add(line);
+                }
+                else
+                {
+                    break;
+                }
+            }
 
+
+            foreach (var u in urlList)
+            {
                 //i とりあえず適当にダウンロード
-                var content = HttpRequester.FileGetContent("http://www.kasX-tXme.com/Xtem-65154.html");
+                var content = HttpRequester.FileGetContent(u);
                 var song = SongInfoExtraction.CreateSong(content);
                 addSong(song);
+
+                //連続でダウンロードすると怪しまれると思うので待機
+                Random cRandom = new System.Random();
+                int random = cRandom.Next(3000, 8000);
+                await Task.Delay(random);
+
             }
         }
 
