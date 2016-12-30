@@ -27,7 +27,7 @@ namespace LyricDownload.model.service
         }
         private static string deleteTabAndNewLine(string contents)
         {
-            return contents.Replace(Constants.Tab, "").Replace(System.Environment.NewLine, "");
+            return contents.Replace(Constants.TAB, "").Replace(System.Environment.NewLine, "");
         }
         private static string extractRegex( string target, string regexStr)
         {
@@ -77,7 +77,7 @@ namespace LyricDownload.model.service
         private static string extractLyric(string contents)
         {
             var ret = extractRegex(contents, @"var lyrics = '([^']*)'");
-            ret = DecodeWebString.DecodeHtmlCharacterReference(ret).Replace("<br>","<br/>");
+            ret = DecodeWebString.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HTML_BR);
             return ret;
         }
 

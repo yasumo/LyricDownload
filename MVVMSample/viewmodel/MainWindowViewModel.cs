@@ -53,11 +53,6 @@ namespace LyricDownload.viewmodel
         }
 
         private Songs songs;
-
-
-
-
-
         #endregion
 
 
@@ -73,9 +68,9 @@ namespace LyricDownload.viewmodel
         {
             if (e.PropertyName.Equals("SelectedIndex")) {
                 var s = (songs.SongList[selectedIndex.Value]);
-                Lyric = s.Lyric;
+                Lyric = s.Lyric.Replace(Constants.HTML_BR,System.Environment.NewLine);
                 SongInfo = "タイトル：" + s.Title + System.Environment.NewLine
-                    + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
+                    + "歌手：" + s.Singer + Constants.TAB + "作詞：" + s.Lyricista + Constants.TAB + "作曲：" + s.Composer;
             }
         }
 
@@ -107,7 +102,7 @@ namespace LyricDownload.viewmodel
 
         private async void calcDownloadCommand()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 30; i++)
             {
                 var content = await HttpRequester.FileGetContent("http:hogehoge");
                 var song = SongInfoExtraction.CreateSong(content);
