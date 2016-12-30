@@ -63,6 +63,7 @@ namespace LyricDownload.viewmodel
         
 
         private Songs songs;
+        private bool canSave;
         #endregion
 
 
@@ -73,15 +74,23 @@ namespace LyricDownload.viewmodel
             songTitleListSource = new ObservableCollection<string>();
             PropertyChanged += propertyChange;
             SaveDir = @"D:\tmp";
+            canSave = false;
         }
 
 
         #region ハンドラ
         private void propertyChange(object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName.Equals("SelectedIndex")) {
+            if (e.PropertyName.Equals("SelectedIndex"))
+            {
+                if (selectedIndex == null)
+                {
+                    Lyric = null;
+                    SongInfo = null;
+                    return;
+                }
                 var s = (songs.SongList[selectedIndex.Value]);
-                Lyric = s.Lyric.Replace(Constants.HtmlBR,System.Environment.NewLine);
+                Lyric = s.Lyric.Replace(Constants.HtmlBR, System.Environment.NewLine);
                 SongInfo = "タイトル：" + s.Title + System.Environment.NewLine
                     + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
             }
@@ -93,26 +102,40 @@ namespace LyricDownload.viewmodel
 
         public ICommand SaveEverNoteCommand
         {
-            get { return this.saveEverNoteCommand ?? (this.saveEverNoteCommand = new DelegateCommand(calcSaveEverNoteCommand, null)); }
+            get { return this.saveEverNoteCommand ?? (this.saveEverNoteCommand = new DelegateCommand(saveEverNoteCommandExecute, canSaveEverNote)); }
         }
+
         private ICommand downloadCommand;
 
         public ICommand DownloadCommand
         {
-            get { return this.downloadCommand ?? (this.downloadCommand = new DelegateCommand(calcDownloadCommand, null)); }
+            get { return this.downloadCommand ?? (this.downloadCommand = new DelegateCommand(downloadCommandExecute, null)); }
+        }
+        private ICommand clearCommand;
+
+        public ICommand ClearCommand
+        {
+            get { return this.clearCommand ?? (this.clearCommand = new DelegateCommand(clearCommandExecute, null)); }
         }
         #endregion
 
         #region コマンド実メソッド
-        private void calcSaveEverNoteCommand()
+        private void clearCommandExecute() {
+            clear();
+        }
+        private void saveEverNoteCommandExecute()
         {
-
-
+            int num = 0;
+            foreach(var s in songs.SongList){
+                var evernote = EverNoteConverter.Convert(s);
+                FileCreater.SaveFile(evernote, saveDir + Path.DirectorySeparatorChar + num + ".enex");
+                num++;
+            }
         }
 
-        private async void calcDownloadCommand()
+        private async void downloadCommandExecute()
         {
-            StringReader strReader = new StringReader(Urls);
+            var strReader = new StringReader(Urls);
             var urlList = new List<string>();
             while (true)
             {
@@ -130,17 +153,19 @@ namespace LyricDownload.viewmodel
 
             foreach (var u in urlList)
             {
-                //i とりあえず適当にダウンロード
+                //連続でダウンロードすると怪しまれると思うので待機
+                var cRandom = new System.Random();
+                int random = cRandom.Next(1000, 3000);
+                await Task.Delay(random);
+
+                //実際のダウンロード
                 var content = HttpRequester.FileGetContent(u);
                 var song = SongInfoExtracter.CreateSong(content);
                 addSong(song);
 
-                //連続でダウンロードすると怪しまれると思うので待機
-                Random cRandom = new System.Random();
-                int random = cRandom.Next(3000, 8000);
-                await Task.Delay(random);
-
             }
+            canSave = true;
+
         }
 
 
@@ -153,6 +178,20 @@ namespace LyricDownload.viewmodel
         {
             songs.SongList.Add(song);
             SongTitleListSource.Add(song.Title);
+        }
+        private void clear()
+        {
+            SelectedIndex = null;
+            songs = new Songs();
+            Urls = "";
+            SongTitleListSource = new ObservableCollection<string>();
+            canSave = false;
+
+        }
+
+        private bool canSaveEverNote()
+        {
+            return canSave;
         }
 
         #endregion

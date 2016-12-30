@@ -21,7 +21,7 @@ namespace LyricServiceTest
             var content = HttpRequester.FileGetContent("http://www.kasX-tXme.com/Xtem-65154.html");
             var song = SongInfoExtracter.CreateSong(content);
             var evernote = EverNoteConverter.Convert(song);
-            FileCreater.SaveFile(evernote, @"E:\WindowsWorkFiles\Desktop\tmp");
+            FileCreater.SaveFile(evernote, @"E:\WindowsWorkFiles\Desktop\sample\hoge.enex");
         }
 
     }
