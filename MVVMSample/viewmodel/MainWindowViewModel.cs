@@ -100,13 +100,14 @@ namespace LyricDownload.viewmodel
         #region コマンド実メソッド
         private void calcSaveEverNoteCommand()
         {
+            //songsをevernoteに保存するやつ
         }
 
         private async void calcDownloadCommand()
         {
             for (int i = 0; i < 10; i++)
             {
-                var content = await download("http:hogehoge");
+                var content = await HttpRequester.FileGetContent("http:hogehoge");
                 var song = createSong(content);
                 addSong(song);
             }
@@ -119,13 +120,18 @@ namespace LyricDownload.viewmodel
         #region その他プライベートメソッド
         //曲をコンテンツから作成
         private Song createSong(string content) {
-            var song = new Song();
-            song.Title = "aaa";
-            song.Singer = "aaa";
-            song.Lyricista = "aaa";
-            song.Composer = "aaa";
-            song.Lyric = DecodeWebString.DecodeHtmlCharacterReference("&#38560;&#12375;&#12390;&rarr;&#38283;&#12356;&#12390;&rarr;&#38560;&#12375;&#12390;<br>&#12414;&#12384;&#12371;&#12428;&#12399;");
-            return song;
+            var title = "aaa";
+            var singer = "aab";
+            var lyricista = "aaa";
+            var composer = "ccc";
+            var lyric = DecodeWebString.DecodeHtmlCharacterReference("&#38560;&#12375;&#12390;&rarr;&#38283;&#12356;&#12390;&rarr;&#38560;&#12375;&#12390;<br>&#12414;&#12384;&#12371;&#12428;&#12399;");
+            return new Song {
+                Title = title,
+                Singer = singer,
+                Lyricista = lyricista,
+                Composer = composer,
+                Lyric = lyric
+            };
         }
 
         //曲を追加する
@@ -135,13 +141,6 @@ namespace LyricDownload.viewmodel
             SongTitleListSource.Add(song.Title);
         }
 
-        //ダウンロードしてコンテンツを返すやつ
-        private async Task<string> download(string url)
-        {
-            await Task.Delay(1000);
-            var content = "content";
-            return content;
-        }
         #endregion
     }
 

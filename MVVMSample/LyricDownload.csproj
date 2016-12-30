@@ -59,10 +59,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="model\Constants.cs" />
     <Compile Include="model\model\Song.cs" />
     <Compile Include="model\model\Songs.cs" />
-    <Compile Include="model\service\Calculation.cs" />
     <Compile Include="model\service\DecodeWebString.cs" />
+    <Compile Include="model\service\HttpRequester.cs" />
     <Compile Include="util\DelegateCommand.cs" />
     <Page Include="view\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -106,7 +107,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="model\IgnoreFiles\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
