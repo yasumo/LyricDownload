@@ -90,7 +90,7 @@ namespace LyricDownload.viewmodel
                     return;
                 }
                 var s = (songs.SongList[selectedIndex.Value]);
-                Lyric = s.Lyric.Replace(Constants.HtmlBR, System.Environment.NewLine);
+                Lyric = s.Lyric;
                 SongInfo = "タイトル：" + s.Title + System.Environment.NewLine
                     + "歌手：" + s.Singer + Constants.Tab + "作詞：" + s.Lyricista + Constants.Tab + "作曲：" + s.Composer;
             }

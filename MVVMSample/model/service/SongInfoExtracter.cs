@@ -51,7 +51,11 @@ namespace LyricDownload.model.service
         private static string extractComposer(string contents)
         {
             var ret = extractRegex(contents, @"<tr><th>作曲</th><td><a href=[^>]*>([^<]*)</a>");
-            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret)
+                .Replace("\"", "&quot;")
+                .Replace("<", "&lt;")
+                .Replace(">", "&gt;")
+                .Replace("&", "&amp;");
             return ret;
         }
 
@@ -82,7 +86,7 @@ namespace LyricDownload.model.service
         private static string extractLyric(string contents)
         {
             var ret = extractRegex(contents, @"var lyrics = '([^']*)'");
-            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret).Replace("<br>", Constants.HtmlBR);
+            ret = WebStringDecoder.DecodeHtmlCharacterReference(ret).Replace("<br>", Environment.NewLine);
             return ret;
         }
 
